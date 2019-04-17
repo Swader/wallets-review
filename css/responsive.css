@@ -94,6 +94,9 @@ header{display: none !important; }
 }
 
 @media (max-width: 767px) {
+    .dt-box img {
+        opacity: 1 !important;
+    }
 .error-sec > form {left: 0; margin-left: 0; width: 100%; }
 .block .container {padding: 0 15px; }
 .container {padding: 0 15px; }
@@ -145,6 +148,9 @@ header{display: none !important; }
 }
 
 @media (max-width: 520px)  {
+    .dt-box img {
+        opacity: 1 !important;
+    }
 .upload-gallery-pictures {margin-right: 5%; width: 40%; }
 .pagination a {margin: 0 2px; }
 .review-list {display: inline; text-align: center; }
