@@ -121,6 +121,8 @@
 
                                             </p>
 
+                                            <p>The wallet has support for BIP-21 payment URIs, which is an odd choice considering it's a Bitcoin standard. However, it also partially supports EIP-681 which means your recipient URIs can contain both the `?amount` and the `?value` parameter. One caveat: whole numbers are interpreted as Wei, floating point numbers are ether. It will parse URIs with both parameters but prioritize `value` if both exist. In terms of ENS support, you can manually enter ENS names like `bitfalls.eth` into the recipient field and it works, but you will NOT be able to scan them into the app from a QR code.</p>
+
                                             <p><span>P</span>roviding an application with access to the wallet incurs no risk other than the fact that you're giving the application your wallet's address. Keep that in mind when considering <a href="https://haveibeensold.app">who might sell your data</a>, once it's connected to information like your browsing and web-shopping habits.</p>
                                             <p>The dapp store is basic but pleasant to browse. There are no voting mechanics and no filtering is going on, which means a lot of the apps there are not dapps at all (requiring accounts) or flat out don't work.</p>
                                         </div>

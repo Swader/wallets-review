@@ -223,7 +223,7 @@ iframe{
 }
 
 .separator {
-    border-bottom: 1px solid silver;
+    border-bottom: 1px solid whitesmoke;
     float: left;
     height: 1px;
     width: 100%;
@@ -3085,9 +3085,10 @@ header.white  .acount-header-btn{
 }
 .recent-place-detail .listing-box-title h3 a {
     color: #222222;
+    text-decoration: underline;
 }
 .recent-place-detail .listing-box-title h3 {
-    font-size: 18px;
+    font-size: 24px;
     margin-bottom: 7px;
     margin-top: 0;
 }
@@ -4288,6 +4289,7 @@ input::-moz-focus-inner {
 .widget .tags_widget {
     background: #ffffff none repeat scroll 0 0;
     padding: 30px 20px;
+    padding-top: 0;
 
     -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -5263,7 +5265,17 @@ div.no-box > div {
 
     float: left;
     padding: 30px;
+    padding-top: 0;
     width: 100%;
+}
+
+.mainLabel {
+    padding: 10px 5px 5px 15px;
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-style: italic;
+    color: #777777;
+    text-decoration: underline;
 }
 .detail-descriptions > p {
     color: #8d99ae;

@@ -163,7 +163,14 @@
                                             <p>Which operating systems the app supports. Sometimes an app will have a desktop version, but this attribute will not be present in the main list on that app. This happens in cases where the desktop app differs from the mobile one so much they cannot be considered the same app, so the desktop version is ignored. An example is Opera and Status - both have desktop versions, but neither desktop version shares the wallet functionality of the mobile counterpart.</p>
                                         </div>
                                 </div><!-- FAQ'S Box -->
-                                            
+
+                                <div class="faqs-box" id="ens" data-attribute="ens">
+                                        <h3>ENS support</h3>
+                                        <div class="content-faq">
+                                            <p>Indicates the level and type of support for the Ethereum Name System. The ENS allows you to enter an Ethereum address in the form of something like `bitfalls.eth` rather than `0x4da...523e`. This makes it much easier to send funds and avoid errors, and also protects you somewhat from impostor ICOs.</p>
+                                        </div>
+                                </div><!-- FAQ'S Box -->
+                                 
                                 <div class="faqs-box" id="custom_token" data-attribute="custom_token">
                                         <h3>Custom Token Support</h3>
                                         <div class="content-faq">
@@ -176,12 +183,21 @@
                                             <p>An open source app is safe because you can inspect it. When you have access to the source code, you know the private keys aren't being sent to anyone's server, and you know that no one is collecting and <a href="https://haveibeensold.app">selling data about you</a>. Granted, a full open source approach can backfire and copycat apps with the same UI and features PLUS a key hijacking mechanic can and do appear in app stores, but when open source apps provide verifiable APKs and binaries instead of relying on centralized distribution services, you get the holy grail of security.</p>
                                         </div>
                                 </div><!-- FAQ'S Box -->
-                                            
+
+                                <div class="faqs-box" id="qr" data-attribute="qr">
+                                    <h3>What's the QR code support like?</h3>
+                                    <div class="content-faq">
+                                        <p>The world of QR code scanning in the blockchain space is chaos, and that's putting it mildly. Several attempts at standardizing this have been made, most notably the successful <a href="https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki">BIP-21</a> proposal, but that's Bitcoin specific and while it's useful for the simpler blockchains like Bitcoin's, it doesn't work well for Ethereum which needs more advanced inputs.</p>
+                                        <p>In Ethereum, <a href="https://github.com/ethereum/EIPs/pull/681">EIP-681</a> is the agreed-upon standard, but as the specification is rather clumsily written and the EIP further depends on <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-831.md">EIP-831</a>, very few wallets support it in full. We are preparing a detailed study into which format is accepted by which wallet and to which degree and will share it here as well as on <a href="https://bitfalls.com">Bitfalls.com</a>.</p>
+                                        <p>Wallets.Review currently only states whether or not a wallet supports BIP-21 or EIP-681, with the latter having a positive and a negative state, and the former being neutral. Infrastructure for a more granular display is in place (and those detailed attributes can be seen below), but the layout on how to show this is still being debated. Keep an eye on this space, things will change soon™.</p>
+                                    </div>
+                            </div><!-- FAQ'S Box -->
+
                                 <div class="faqs-box" id="keys" data-attribute="keys">
                                         <h3>Key custody</h3>
                                         <div class="content-faq">
                                             <p>Not your keys, not your crypto. If a wallet stores your keys on its servers, you're trusting it with your money. If you have your own keys and only you have them, then you're your own bank but can easily lose the key and access to your money unless you take the necessary precautions.</p>
-                                            <p>An app will be marked Risky here if it is partially closed source (i.e. the networking or storage parts) and isn't provably transparent on where data goes and when - this can mean they send your keys around, but also doesn't have to mean that. The only way to prove their good intentions is to open source their entire app.</p>
+                                            <p>An app will be marked Risky here if it is partially closed source (i.e. the networking or storage parts) and isn't provably transparent on where data goes and when - this can mean they send your keys around, but also doesn't have to mean that. The only way to get rid of the Risky flag is to open source their entire app, or to have a respectable auditing firm audit the application at a specific version (identified by <a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">CRC</a> or similar) and then explain to users how to perform the same CRC for the installed app. Once users can tell that the installed version is the same as the audited one, the app is no longer Risky.</p>
                                         </div>
                                 </div><!-- FAQ'S Box -->
                                             

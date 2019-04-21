@@ -33,10 +33,12 @@ function populateWallets() {
             if (parseInt(attributeValue, 10) >= 0) {
                 // Level attr
                 currentAttribute = attributes[attributeName]['levels'][attributeValue];
-                attributeClass = sentimentClasses[currentAttribute.sentiment];
             } else {
                 // Multi attr
                 currentAttribute = attributes[attributeName]['multi'][attributeValue];
+            }
+            if (undefined !== sentimentClasses[currentAttribute.sentiment]) {
+                attributeClass = sentimentClasses[currentAttribute.sentiment];
             }
             
             if (attributeName == "chains") {
@@ -64,12 +66,19 @@ function populateAttributes() {
         var template2 = document.querySelector("#tagInFilterTemplate-checkbox");
         var cbt = document.querySelector("#collapseButtonTemplate");
         var collapseDivTemplate = document.querySelector("#collapseDivTemplate");
+        var mainLabelTemplate = document.querySelector("#mainLabelTemplate");
 
         for (var key in attributes) {
             if (attributes.hasOwnProperty(key)) {
 
                 var divClone = document.importNode(collapseDivTemplate.content, true);
                 divClone.querySelector("div").setAttribute("id", key);
+
+                if (undefined !== attributes[key]['label']) {
+                    var mainLabel = document.importNode(mainLabelTemplate.content, true);
+                    mainLabel.querySelector(".mainLabel").innerText = attributes[key]['label'];
+                    divClone.appendChild(mainLabel);
+                }
 
                 // var cbtClone = document.importNode(cbt.content, true);
                 // var button = cbtClone.querySelector("button");
@@ -87,6 +96,9 @@ function populateAttributes() {
                     // Levels mode
                     for (var j = 0; j < attributes[key]['levels'].length; j++) {
 
+                        if (attributes[key]['levels'][j].filter === false) {
+                            continue;
+                        }
                         var id = key + "-" + j;
 
                         // Iterate through levels
@@ -103,12 +115,16 @@ function populateAttributes() {
                         divClone.appendChild(clone);
                     }
                     
-                } else {
+                } else if (undefined !== attributes[key]['multi']) {
                     // Multi mode
                     for (var key2 in attributes[key]['multi']) {
                         if (attributes[key]['multi'].hasOwnProperty(key2)) {
                             var id = key + "-" + key2;
 
+                            if (attributes[key]['multi'][key2].filter === false) {
+                                continue;
+                            }
+    
                             // Iterate through levels
                             var clone = document.importNode(template2.content, true);
 
@@ -147,7 +163,7 @@ function populateAttributes() {
                         renderTag($(el).attr("data-attribute")+"-"+key, selectedAttribute.multi[key]);
                     }
                 }
-            } else {
+            } else if (undefined !== selectedAttribute['levels']) {
                 if (selectedAttribute.levels.length > 1) {
                     el.querySelector("div").innerHTML += "<p>A wallet can have only one value of this attribute.</p>"
                 } else {
@@ -204,10 +220,12 @@ function populateAttributes() {
                     if (parseInt(attributeValue, 10) >= 0) {
                         // Level attr
                         currentAttribute = attributes[attributeName]['levels'][attributeValue];
-                        attributeClass = sentimentClasses[currentAttribute.sentiment];
                     } else {
                         // Multi attr
                         currentAttribute = attributes[attributeName]['multi'][attributeValue];
+                    }
+                    if (undefined !== sentimentClasses[currentAttribute.sentiment]) {
+                        attributeClass = sentimentClasses[currentAttribute.sentiment];
                     }
                     
                     if (attributeName == "chains") {
@@ -221,7 +239,6 @@ function populateAttributes() {
                         tagClone.querySelector(".attribute").title = currentAttribute.description;
 
                         tagClone.querySelector("div").innerHTML += "<div class='attribute-special-description'>"+currentAttribute.description;+"</div>";
-                        //document.querySelector(".category-widget").appendChild(tagClone);
                         document.querySelector(".category-widget").innerHTML += tagClone.querySelector("div").innerHTML;
                     }
                     
@@ -264,10 +281,12 @@ function resetFilters() {
 }
 
 function populateMenus() {
-    if ($(".appMenuList")) {
+    if ($(".appMenuList").length) {
         for (var i = 0; i < wallets.length; i++) {
             var newItem = "<li><a href='/apps/"+ wallets[i].slug +"'>"+ wallets[i].label +"</a></li>";
-            document.querySelectorAll(".appMenuList")[0].innerHTML += newItem;
+            for (var j = 0; j < document.querySelectorAll(".appMenuList").length; j++) {
+                document.querySelectorAll(".appMenuList")[j].innerHTML += newItem;
+            }
         }
     }
 }
@@ -343,7 +362,9 @@ var wallets = [
             "os-android", 
             "open_source-2", 
             "keys-2", 
-            "stability-0"
+            "stability-0",
+            "ens-2",
+            "qr-eip_681_no"
         ],
         "slug": "status"
     },
@@ -362,7 +383,10 @@ var wallets = [
             "custom_token-erc721",
             "open_source-0",
             "keys-1",
-            "stability-2"
+            "stability-2",
+            "ens-2",
+            "qr-bip_21",
+            "qr-eip_681_no"
         ],
         "slug": "opera"
     },
@@ -403,15 +427,91 @@ var wallets = [
             "open_source-1",
             "keys-1",
             "stability-2",
-            "authentication-biometric"
+            "ens-0",
+            "authentication-biometric",
+            "qr-bip_21",
+            "qr-eip_681_no"
         ],
         "slug": "trust"
-    }]
+    },
+    // {
+    //     "label": "LETH",
+    //     "attr": "stability-0"
+    // }
+]
 
+// Opera:
+
+/*
+- address only = (ok)
+- address + amount decimal = wei (OK)
+- address + amount float = Eth (OK)
+- address + value decimal = wei (OK)
+- address + value decimal + Eth unit = Eth (OK)
+- address + value float = Eth (OK)
+- address + value float + Eth unit = OK
+- amount + value = value
+
+- address + value 1e18 = value in eth (off by 10^18)
+- ENS scan = no
+- "to" scan = no
+- amount & value in e^ = value in eth (off by 10^18)
+- value in e^ & amount = value in eth (off by 10^18)
+*/
+
+// Status:
+
+/*
+- address only (OK)
+- address + value decimal = wei (OK)
+- amount 1 + value 1e18 = 1 eth (OK) (takes value)
+- value 1e18 = 1 eth (OK)
+- value 1e18 + amount 1 = 1 eth (OK) (takes value)
+- value in wei, 5000000000000000 = OK in eth
+- address + amount decimal = address
+- address + amount float  = address
+- address + value float = NOT OK wei (100.5 = 1005)
+- ENS scan = no
+- "to" scan = no
+- value 1 + Eth unit = error
+- value in wei + unit = address
+*/
+
+// Trust
+
+/*
+- address only OK
+- address + amount dec = address + value in eth
+- address + amount float = address + value in eth
+- address + value dec = address + value in eth
+- address + value float = address + value in eth
+- value 1 + Eth unit = OK
+- value 1.1 + Eth unit = OK
+- amount + value / value + amount = picks value OK
+
+- to / ENS = fail
+- scientific notation = nope
+*/
+
+// ethereum:to:bitfalls.eth
+// ethereum:bitfalls.eth
+// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da
+// ethereum:to:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da
+// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?amount=100
+// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?amount=100.5
+// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?value=100
+// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?value=100.5
+// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?value=1+ETH
+// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?value=1e18
+// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?value=50000000000000000
+// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?value=50000000000000000+WEI
+// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?value=1e18&amount=1
+// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?amount=1&value=1e18
 
 var attributes = {
 
         "censorship": {
+            "label": "Censorship Resistance",
             "levels": [
                 {
                     "label": "Highly censorable",
@@ -438,6 +538,7 @@ var attributes = {
         },
 
         "dapps": {
+            "label": "Dapp Support",
             "levels": [
                 {
                     "label": "No dapps",
@@ -463,6 +564,7 @@ var attributes = {
         },
 
         "ux": {
+            "label": "User Experience",
             "levels": [
                 {
                     "label": "Hard to use",
@@ -487,10 +589,218 @@ var attributes = {
             ]
         },
 
-        "multichain": {
+        "defi": {
+            "label": "Decentralized Finance",
+            "multi": {
+                "uniswap": {
+                    "label": "Uniswap 🦄",
+                    "description": "Application has built-in support for https://uniswap.exchange.",
+                    "sentiment": 0.5
+                },
+                "compound": {
+                    "label": "Compound 💸",
+                    "description": "Application has built-in support for https://compound.finance.",
+                    "sentiment": 0.5
+                },
+                "maker": {
+                    "label": "MakerDAO 💵",
+                    "description": "Application has built-in support for https://cdp.makerdao.com.",
+                    "sentiment": 0.5
+                },
+                "dharma": {
+                    "label": "Dharma ☸",
+                    "description": "Application has built-in support for https://dharma.io.",
+                    "sentiment": 0.5
+                },
+                "nuo": {
+                    "label": "Nuo 🆕",
+                    "description": "Application has built-in support for https://nuo.network.",
+                    "sentiment": 0.5
+                }
+            }
+        },
+
+        "qr": {
+            "label": "QR Code Support",
+            "multi": {
+                "basic": {
+                    "label": "QR: Address",
+                    "description": "The application's QR scanner has basic recipient address scanning capability.",
+                    "sentiment": 0,
+                    "total_sentiment": false,
+                    "filter": false
+                },
+                "amount_bad": {
+                    "label": "QR: ?amount ❌",
+                    "sentiment": -0.5,
+                    "description": "Amount is a field from the BIP21 standard. As such, any value passed in this way should be ether, not wei. In this case, when passing in integers, e.g. amount=50, the wallet interprets it as 50 Wei. When passing in floats, e.g. amount=50.0 the app interprets it as 50.0 ether. This inconsistency is dangerous.",
+                    "total_sentiment": false,
+                    "filter": false
+                },
+                "amount_good": {
+                    "label": "QR: ?amount ✅",
+                    "description": "Application supports the ?amount parameter as specified by BIP21 - it's always in ether, never in wei.",
+                    "sentiment": 0.5,
+                    "total_sentiment": false,
+                    "filter": false
+                },
+                "value_bad_int": {
+                    "label": "QR: ?value={int} ❌",
+                    "sentiment": -0.5,
+                    "description": "Integer input of value should result in a value in wei being entered into the amount field.",
+                    "total_sentiment": false,
+                    "filter": false
+                },
+                "value_good_int": {
+                    "label": "QR: ?value={int} ✅",
+                    "sentiment": 0.5,
+                    "description": "Integer input of value should result in a value in wei being entered into the amount field.",
+                    "total_sentiment": false,
+                    "filter": false
+                },
+                "value_bad_float": {
+                    "label": "QR: ?value={float} ❌",
+                    "sentiment": -0.5,
+                    "description": "A number with a floating point should represent amount of Ether to send.",
+                    "total_sentiment": false,
+                    "filter": false
+                },
+                "value_good_float": {
+                    "label": "QR: ?value={float} ✅",
+                    "sentiment": 0.5,
+                    "description": "A number with a floating point should represent amount of Ether to send.",
+                    "total_sentiment": false,
+                    "filter": false
+                },
+                "value_int_unit_good": {
+                    "label": "QR: ?value={int}+ETH ✅",
+                    "description": "A whole number with a \"+ETH\" suffix shows the value in ether, as per EIP-681.",
+                    "sentiment": 0.5,
+                    "total_sentiment": false,
+                    "filter": false
+                },
+                "value_int_unit_bad": {
+                    "label": "QR: ?value={int}+ETH ❌",
+                    "description": "Including a suffix after the whole number value breaks things.",
+                    "sentiment": -0.5,
+                    "total_sentiment": false,
+                    "filter": false
+                },
+                "value_float_unit_good": {
+                    "label": "QR: ?value={float}+ETH ✅",
+                    "description": "A floating point number with a \"+ETH\" suffix shows the value in ether, as per EIP-681.",
+                    "sentiment": 0.5,
+                    "total_sentiment": false,
+                    "filter": false
+                },
+                "value_float_unit_bad": {
+                    "label": "QR: ?value={float}+ETH ❌",
+                    "description": "A floating point number with a \"+ETH\" suffix shows the value in ether, as per EIP-681.",
+                    "sentiment": -0.5,
+                    "total_sentiment": false,
+                    "filter": false
+                },
+                "value_scientific_good": {
+                    "label": "QR: ?value=1e18 ✅",
+                    "description": "Value entered in scientific notation gets converted to base unit correctly",
+                    "sentiment": 0.5,
+                    "total_sentiment": false,
+                    "filter": false
+                },
+                "value_scientific_bad": {
+                    "label": "QR: ?value=1e18 ❌",
+                    "description": "Value entered in scientific notation produces an error or wrong input.",
+                    "sentiment": -0.5,
+                    "total_sentiment": false,
+                    "filter": false
+                },
+                "value_scientific_unit_good": {
+                    "label": "QR: ?value=1e18+ETH ✅",
+                    "description": "Value entered in scientific notation followed by unit parses the correct value.",
+                    "sentiment": 0.5,
+                    "total_sentiment": false,
+                    "filter": false
+                },
+                "value_scientific_unit_bad": {
+                    "label": "QR: ?value=1e18+ETH ❌",
+                    "description": "Value entered in scientific notation followed by unit produces an error or wrong input.",
+                    "sentiment": -0.5,
+                    "total_sentiment": false,
+                    "filter": false
+                },
+                "value_amount": {
+                    "label": "v+a=v",
+                    "description": "Providing both value and amount picks value.",
+                    "sentiment": 0,
+                    "filter": false
+                },
+                "amount_value": {
+                    "label": "v+a=a",
+                    "description": "Providing both value and amount picks amount.",
+                    "sentiment": 0,
+                    "filter": false
+                },
+                "value_amount_bad": {
+                    "label": "!v+e",
+                    "description": "Providing both value and amount breaks the app.",
+                    "sentiment": -0.5,
+                    "filter": false
+                },
+                "eip_831": {
+                    "label": "EIP-831 ✅",
+                    "sentiment": 0.5,
+                    "description": "For upgradeability, EIP-831 specifies that EIP-681 use the pay- prefix, like so: ethereum:pay-0x7492734973..dafe0?value=..."
+                },
+                "eip_831_bad": {
+                    "label": "EIP-831 ❌",
+                    "sentiment": -0.5,
+                    "description": "For upgradeability, EIP-831 specifies that EIP-681 use the pay- prefix, like so: ethereum:pay-0x7492734973..dafe0?value=... This application errors or does not parse URIs with the pay- prefix."
+                },
+                "eip_681": {
+                    "label": "EIP-681 ✅",
+                    "description": "This application fully supports EIP-681 with value params, units, and scientific notation",
+                    "sentiment": 1
+                },
+                "eip_681_no": {
+                    "label": "EIP-681 ❌",
+                    "description": "This application is not EIP-681 compatible",
+                    "sentiment": -0.5
+                },
+                "bip_21": {
+                    "label": "BIP-21 ✅",
+                    "description": "This application supports the BIP-21 standard.",
+                    "sentiment": 0.5
+                }
+
+            }
+        },
+
+        "ens": {
+            "label": "ENS support",
             "levels": [
                 {
-                    "label": "Supports multiple blockchains",
+                    "label": "No ENS",
+                    "description": "This application has no ENS support. Addresses must be entered in hex format.",
+                    "sentiment": -0.5
+                },
+                {
+                    "label": "Own ENS",
+                    "description": "This application has its own ENS and does not support the public ENS directly.",
+                    "sentiment": 0
+                },
+                {
+                    "label": "ENS",
+                    "description": "This application fully supports the Ethereum Name Service",
+                    "sentiment": 1
+                }
+            ]
+        },
+
+        "multichain": {
+            "label": "Multi-chain",
+            "levels": [
+                {
+                    "label": "Multiple blockchains",
                     "sentiment": 1,
                     "description": "This wallet can be used to interact with several different blockchains."
                 }
@@ -498,6 +808,7 @@ var attributes = {
         },
 
         "chains": {
+            "label": "Supported Blockchains",
             "multi": {
                 "eth": {
                     "label": "Ethereum",
@@ -765,6 +1076,7 @@ var attributes = {
         },
 
         "custom_net": {
+            "label": "Custom RPC / Node",
             "levels": [
                 {
                     "label": "No custom node support",
@@ -785,6 +1097,7 @@ var attributes = {
         },
 
         "os": {
+            "label": "Operating Systems",
             "multi": {
                 "ios": {
                     "label": "iOS",
@@ -814,6 +1127,7 @@ var attributes = {
         },
 
         "custom_token": {
+            "label": "Token Standards",
             "multi": {
                 "erc20": {
                     "label": "ERC20",
@@ -829,6 +1143,7 @@ var attributes = {
         },
 
         "open_source": {
+            "label": "Source Code",
             "levels": [
                 {
                     "label": "Closed Source",
@@ -849,6 +1164,7 @@ var attributes = {
         },
 
         "keys": {
+            "label": "Key storage",
             "levels": [
                 {
                     "label": "Custody 🔑",
@@ -869,6 +1185,7 @@ var attributes = {
         },
 
         "stability" : {
+            "label": "Stability",
             "levels": [
                 {
                     "label": "In development",
@@ -889,6 +1206,7 @@ var attributes = {
         },
 
         "authentication": {
+            "label": "Authentication",
             "multi": {
                 "hw": {
                     "label": "Hardware wallet",
