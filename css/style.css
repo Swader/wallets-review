@@ -4507,6 +4507,11 @@ aside .widget{
     margin-bottom: 20px;
 }
 
+.imgContainer img {
+    max-width: 100%;
+    max-height: 600px;
+}
+
 twitter-widget {
     margin: 10px auto !important;
 }

@@ -364,7 +364,9 @@ var wallets = [
             "keys-2", 
             "stability-0",
             "ens-2",
-            "qr-eip_681_no"
+            "qr-basic",
+            "qr-eip_681_no",
+            "kyc-0"
         ],
         "slug": "status"
     },
@@ -385,8 +387,10 @@ var wallets = [
             "keys-1",
             "stability-2",
             "ens-2",
+            "qr-basic",
             "qr-bip_21",
-            "qr-eip_681_no"
+            "qr-eip_681_no",
+            "kyc-0"
         ],
         "slug": "opera"
     },
@@ -429,11 +433,98 @@ var wallets = [
             "stability-2",
             "ens-0",
             "authentication-biometric",
+            "qr-basic",
             "qr-bip_21",
-            "qr-eip_681_no"
+            "qr-eip_681_no",
+            "kyc-0"
         ],
         "slug": "trust"
     },
+    {
+        "label": "TenX",
+        "slug": "tenx",
+        "attr": [
+            "censorship-0",
+            "dapps-0",
+            "ux-1",
+            "qr-basic",
+            "qr-eip_681_no",
+            "qr-bip_21",
+            "ens-0",
+            "multichain-0",
+            "chains-btc",
+            "chains-ltc",
+            "chains-eth",
+            "custom_net-0",
+            "kyc-1",
+            "os-android",
+            "os-ios",
+            "custom_token-no_erc20",
+            "open_source-0",
+            "keys-0",
+            "stability-2",
+            "authentication-biometric"
+        ],
+        "website": "https://tenx.tech/en/",
+        "description": "TenX is a custodial wallet with the option of obtaining a crypto debit card one can top up and spend with."
+    },
+    {
+        "label": "Coinbase Wallet",
+        "slug": "coinbase-wallet",
+        "description": "Previously Toshi Wallet, Coinbase Wallet is the \"advanced\" version of Coinbase for all the enthusiasts who like to use Dapps and keep their own keys. It's a significant level-up from the official Coinbase app.",
+        "website": "https://wallet.coinbase.com/",
+        "attr": [
+            "censorship-0",
+            "dapps-2",
+            "ux-0",
+            "qr-basic",
+            "qr-bip_21",
+            "qr-eip_681_no",
+            "qr-eip_831_bad",
+            "ens-0",
+            "multichain-0",
+            "chains-btc",
+            "chains-eth",
+            "chains-xrp",
+            "chains-bch",
+            "chains-ltc",
+            "chains-xlm",
+            "chains-etc",
+            "custom_net-0",
+            "kyc-0",
+            "os-ios",
+            "os-android",
+            "custom_token-erc20",
+            "custom_token-erc721",
+            "open_source-1",
+            "keys-1",
+            "stability-0",
+            "authentication-biometric"
+        ]
+    },
+    {
+        "label": "Walleth",
+        "description": "Walleth is an open source minimalist Ethereum wallet for Android.",
+        "website": "https://walleth.org/",
+        "slug": "walleth",
+        "attr": [
+            "censorship-1",
+            "dapps-0",
+            "ux-1",
+            "qr-basic",
+            "qr-eip_681_no",
+            "qr-eip_831",
+            "ens-0",
+            "chains-eth",
+            "custom_net-0",
+            "kyc-0",
+            "os-android",
+            "open_source-2",
+            "keys-2",
+            "stability-0",
+            "authentication-hw"
+        ]
+    }
     // {
     //     "label": "LETH",
     //     "attr": "stability-0"
@@ -1096,6 +1187,22 @@ var attributes = {
             ]
         },
 
+        "kyc": {
+            "label": "Know Your Customer",
+            "levels": [
+                {
+                    "label": "No KYC",
+                    "description": "The application does not check the identity of its users",
+                    "sentiment": 1
+                },
+                {
+                    "label": "KYC",
+                    "description": "The application checks the identity of its users, putting them at risk.",
+                    "sentiment": -1
+                }
+            ]
+        },
+
         "os": {
             "label": "Operating Systems",
             "multi": {
@@ -1129,6 +1236,11 @@ var attributes = {
         "custom_token": {
             "label": "Token Standards",
             "multi": {
+                "no_erc20": {
+                    "label": "No ERC20",
+                    "description": "Despite being an Ethereum wallet, this application does not support even the most mainstream ERC-20 tokens.",
+                    "sentiment": -1
+                },
                 "erc20": {
                     "label": "ERC20",
                     "description": "Custom tokens matching the ERC20 interface can be added to the built-in list, or are auto-detected.",
@@ -1199,8 +1311,8 @@ var attributes = {
                 },
                 {
                     "label": "Stable",
-                    "sentiment": 1,
-                    "description": "The application should be considered stable and safe to use."
+                    "sentiment": 0.5,
+                    "description": "The application should be considered stable and free from crashes."
                 },
             ]
         },
