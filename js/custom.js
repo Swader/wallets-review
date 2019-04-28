@@ -291,6 +291,16 @@ function populateMenus() {
     }
 }
 
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+
 function populateCoins() {
     if ($(".coins").length) {
         var template = document.querySelector("#coinTemplate");
@@ -341,6 +351,7 @@ var sentimentClasses = {
 }
 
 $(document).ready(function(){
+    wallets = shuffleArray(wallets);
     populateWallets(); 
     populateAttributes();
     populateMenus();
@@ -366,7 +377,8 @@ var wallets = [
             "ens-2",
             "qr-basic",
             "qr-eip_681_no",
-            "kyc-0"
+            "kyc-0",
+            // "qr-inweb3"
         ],
         "slug": "status"
     },
@@ -720,6 +732,11 @@ var attributes = {
                     "sentiment": 0,
                     "total_sentiment": false,
                     "filter": false
+                },
+                "inweb3": {
+                    "label": "QR: Web3 Reader",
+                    "description": "Web3.js' built-in QR reading feature is injected, not just raw Web3. This means your dapps can call read-QR functionality from Web3, rather than use a custom implementation.",
+                    "sentiment": 0.5
                 },
                 "amount_bad": {
                     "label": "QR: ?amount ❌",
