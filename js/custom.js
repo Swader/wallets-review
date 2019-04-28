@@ -289,6 +289,12 @@ function populateMenus() {
             }
         }
     }
+    if ($(".responsive-menu ul").length) {
+        $(".responsive-menu ul").append("<li><a href='https://wallets.substack.com'>Newsletter</a></li>")
+    }   
+    if ($(".header-menu ul").length) {
+        $(".header-menu ul").append("<li><a href='https://wallets.substack.com'>Newsletter</a></li>")
+    }
 }
 
 function shuffleArray(array) {
