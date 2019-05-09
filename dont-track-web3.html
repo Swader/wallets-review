@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/light-water.css">
+    <title>Web3 Tracking Tester</title>
+</head>
+
+<body>
+    <h1>Don't Track Web3</h1>
+    <p>When you visit a dapp with an Ethereum-enabled browser, you're at the dapp's mercy in terms of how much information it will store about in localstorage and cookies. This can be anything from transactions to addresses, but most notably, it can be used to link your identities with one another without you knowing it. Your wallet may support multi-account, but it might not be clearing the cookies effectively which in turn de-anonymizes you quite a bit.</p>
+    <p>This web page will log the Ethereum addresses with which you access it into localstorage and long-lasting
+        cookies. Switch to another address and see if your wallet made sure to clear the cookies. Force a clean by
+        pushing the button below:</p>
+    <button id="clearButton">Clear localstorage and cookies</button>
+
+    <h2>Currently visiting with address: <span id="curAdd"></span></h2>
+
+    <h3>Cookie says you've previously visited from:</h3>
+    <ul id="previousVisitsCookie">
+
+    </ul>
+
+    <h3>Localstorage says you've previously visited from:</h3>
+    <ul id="previousVisitsLocal">
+
+    </ul>
+
+    <hr>
+
+    <h5 style="text-align: right">A tool for <a href="https://wallets.review">Wallets.Review</a> by <a href="https://twitter.com/bitfalls">Bruno</a></h5>
+
+    <script src="js/jquery-3.4.0.min.js"></script>
+    <script src="js/js.cookie.js"></script>
+    <script src="js/ethers.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let provider = new ethers.providers.Web3Provider(web3.currentProvider);
+            provider.listAccounts().then(function (result) {
+                if (result[0] !== undefined) {
+                    console.log("Current address is " + result[0]);
+                    addAddressToCookie(result[0]);
+                    addAddressToLocal(result[0]);
+                    $("#curAdd").text(result[0]);
+                } else {
+                    $("#curAdd").text("N/A - not web3 enabled");
+                    console.error("You are not in a web3 browser, or not authenticated.");
+                }
+
+                var cookieAdd = getAddressesFromCookie();
+                var lsAdd = getAddressesFromLocalStorage();
+                console.log("Addresses fetched. Cookie, then LS.")
+                console.log(cookieAdd, lsAdd);
+
+                let i;
+                for (i = 0; i < cookieAdd.length; i++) {
+                    console.log("Logging " + cookieAdd[i]);
+                    $("#previousVisitsCookie").append("<li>" + cookieAdd[i] + "</li>");
+                }
+
+                for (i = 0; i < lsAdd.length; i++) {
+                    console.log("Logging " + lsAdd[i]);
+                    $("#previousVisitsLocal").append("<li>" + lsAdd[i] + "</li>");
+                }
+            });
+        });
+
+        $("#clearButton").on("click", function(e) {
+            console.log("Clearing all cookies");
+            localStorage.clear();
+            Cookies.remove("addresses");
+            document.location.reload();
+        });
+
+        function addAddressToCookie(address) {
+            console.log("Attempting to add address to cookie " + address);
+            let addresses = getAddressesFromCookie();
+
+            if (!addresses.includes(address)) {
+                addresses.push(address);
+                addresses = prepareForStorage(addresses);
+                Cookies.set("addresses", addresses);
+                console.log("Set addresses cookie to");
+                console.log(addresses);
+            } else {
+                console.log("Address " + address + " already part of the cookie.");
+            }
+        }
+
+        function addAddressToLocal(address) {
+            console.log("Attempting to add address to localstorage " + address);
+            let addresses = getAddressesFromLocalStorage();
+
+            if (!addresses.includes(address)) {
+                addresses.push(address);
+                addresses = prepareForStorage(addresses);
+                localStorage.setItem("addresses", addresses);
+                console.log("Set addresses localstorage to");
+                console.log(addresses);
+            } else {
+                console.log("Address " + address + " already part of the localstorage.");
+            }
+        }
+
+        function prepareForStorage(addresses) {
+            //return JSON.stringify(addresses);
+            return addresses.join(";");
+        }
+
+        function parseFromStorage(addresses) {
+            //return JSON.parse(addresses);
+            return addresses.split(";");
+        }
+
+        function getAddressesFromLocalStorage() {
+            let addresses = localStorage.getItem("addresses");
+            if (addresses) {
+                console.log("Found something in localstorage:")
+                console.log(addresses);
+                addresses = parseFromStorage(addresses);
+                console.log("Parsed addresses from LS into")
+                console.log(addresses);
+            } else {
+                console.log("Nothing in localstorage");
+                addresses = [];
+            }
+            console.log("Returning addresses");
+            return addresses;
+        }
+
+        function getAddressesFromCookie() {
+            let addresses = Cookies.get("addresses");
+            if (addresses !== undefined && addresses !== "[null]") {
+                console.log("Found something in Cookie:")
+                console.log(addresses);
+                addresses = parseFromStorage(addresses);
+                console.log("Parsed addresses from Cookie into")
+                console.log(addresses);
+            } else {
+                console.log("Nothing in cookie");
+                addresses = [];
+            }
+            console.log("Returning addresses");
+            return addresses;
+        }
+    </script>
+</body>
+
+</html>

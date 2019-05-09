@@ -543,79 +543,8 @@ var wallets = [
             "authentication-hw"
         ]
     }
-    // {
-    //     "label": "LETH",
-    //     "attr": "stability-0"
-    // }
+
 ]
-
-// Opera:
-
-/*
-- address only = (ok)
-- address + amount decimal = wei (OK)
-- address + amount float = Eth (OK)
-- address + value decimal = wei (OK)
-- address + value decimal + Eth unit = Eth (OK)
-- address + value float = Eth (OK)
-- address + value float + Eth unit = OK
-- amount + value = value
-
-- address + value 1e18 = value in eth (off by 10^18)
-- ENS scan = no
-- "to" scan = no
-- amount & value in e^ = value in eth (off by 10^18)
-- value in e^ & amount = value in eth (off by 10^18)
-*/
-
-// Status:
-
-/*
-- address only (OK)
-- address + value decimal = wei (OK)
-- amount 1 + value 1e18 = 1 eth (OK) (takes value)
-- value 1e18 = 1 eth (OK)
-- value 1e18 + amount 1 = 1 eth (OK) (takes value)
-- value in wei, 5000000000000000 = OK in eth
-- address + amount decimal = address
-- address + amount float  = address
-- address + value float = NOT OK wei (100.5 = 1005)
-- ENS scan = no
-- "to" scan = no
-- value 1 + Eth unit = error
-- value in wei + unit = address
-*/
-
-// Trust
-
-/*
-- address only OK
-- address + amount dec = address + value in eth
-- address + amount float = address + value in eth
-- address + value dec = address + value in eth
-- address + value float = address + value in eth
-- value 1 + Eth unit = OK
-- value 1.1 + Eth unit = OK
-- amount + value / value + amount = picks value OK
-
-- to / ENS = fail
-- scientific notation = nope
-*/
-
-// ethereum:to:bitfalls.eth
-// ethereum:bitfalls.eth
-// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da
-// ethereum:to:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da
-// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?amount=100
-// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?amount=100.5
-// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?value=100
-// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?value=100.5
-// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?value=1+ETH
-// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?value=1e18
-// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?value=50000000000000000
-// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?value=50000000000000000+WEI
-// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?value=1e18&amount=1
-// ethereum:0xf5d93C0479e3Fe57394E88cf24aBaDf570B991da?amount=1&value=1e18
 
 var attributes = {
 
@@ -728,6 +657,25 @@ var attributes = {
                 }
             }
         },
+
+        "multiacc": {
+            "label": "Multi-account",
+            "levels": [
+                {
+                    "label": "Single Account",
+                    "sentiment": -1,
+                    "description": "Application does not support multiple accounts or addresses. This has privacy implications."
+                },
+                {
+                    "label": "Hard to use multi-account",
+                    "sentiment": 0,
+                    "description": ""
+                },
+                {
+                    "label": 
+                }
+            ],
+        }
 
         "qr": {
             "label": "QR Code Support",
