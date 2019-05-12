@@ -16,7 +16,7 @@ Recovering the funds, however, is possible by importing the `m/44'/60'/0'/0/0` w
 
 Switching identities / accounts entails clicking on settings, wallets, and then picking one of these wallets.
 
-This application has a pretty serious privacy leak in that it does not clear browser cache when you log out and log in again with a new passphrase, meaning your previous visits can be logged and your various identities linked.
+This application has a pretty serious privacy leak in that it does not clear browser cache when you switch crypto identities, meaning your previous visits can be logged and your various identities linked.
 
 ### Status
 
@@ -45,6 +45,8 @@ In Opera, switching crypto identities entails fully logging out of a wallet and 
 Opera does not show transaction history and as such the only view a user is exposed to is the main Ethereum wallet view.
 
 There is no derivation path support and assets sent to an alternative path will not be registered. As there is no private key import, these assets cannot be recovered through Opera.
+
+Opera also has a pretty serious privacy leak in that it does not clear browser cache when you log out and log in again with a new passphrase, meaning your previous visits can be logged and your various identities linked.
 
 ### TenX
 
@@ -111,3 +113,5 @@ There is a clear opening in the market for a well designed application that:
 - again connecting to the above, clear flags of sub-derived addresses that have been used (burned), so the user knows not to use them again, or to use them sparingly
 - metadata on accounts, allowing custom notes, names, identifiers and more (several wallets already offer this)
 - easy imports and exports via all possible methods: key, keystore, phrase (most good wallets offer this)
+
+The above sections on wallets have been added to corresponding entries on [Wallets.Review](https://wallets.review).

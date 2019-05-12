@@ -103,6 +103,16 @@
                                             <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">It follow BIP44 standard for all the blockchains, you can google to find tools to get specific private keys. <br><br>Our code is open source: <a href="https://t.co/jwNCF7p52l">https://t.co/jwNCF7p52l</a> you can dig into it to learn.</p>&mdash; Viktor Radchenko (@vikmeup) <a href="https://twitter.com/vikmeup/status/1116746999297003520?ref_src=twsrc%5Etfw">April 12, 2019</a></blockquote>
                                             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                                         </div>
+
+                                        
+<h3>Multi-account support</h3>
+
+                                        <p>Trust Wallet’s multi-account feature fully separates balances and transactions per account, generating a new recovery phrase rather than opting for a different derivation path. This is because the wallet is multi-blockchain and some blockchains do not support derivation paths. The wallets cannot be individually secured, so they are in effect the identities of the user more than separate users.</p>
+<p>Each account starts with a default list of tokens - Bitcoin, Ethereum and Binance, and can add as many as they wish, including custom ERC20 tokens.</p>
+<p>The derivation path cannot be customized in the wallet itself. If you generate the Ethereum wallet externally and send some ether to a path other than the default <code>m/44'/60'/0'/0/0</code> (e.g. <code>m/44'/60'/0'/0/1</code>), the money will not be registered by Trust Wallet.</p>
+<p>Recovering the funds, however, is possible by importing the <code>m/44'/60'/0'/0/0</code> wallet’s private key or keystore into Trust Wallet. This will then create a new sub-section in the user’s wallet list where multi-coin wallets will be separate from manually imported single-coin wallets, but the funds will be retrievable.</p>
+<p>Switching identities / accounts entails clicking on settings, wallets, and then picking one of these wallets.</p>
+<p>This application has a pretty serious privacy leak in that it does not clear browser cache when you switch crypto identities, meaning your previous visits can be logged and your various identities linked.</p>
                                             
                                         </div>
                                         <blockquote>

@@ -104,6 +104,13 @@
                                                 href="https://bitfalls.com/2018/02/18/15-alternatives-cryptokitties-no-idea-existed/">CryptoKitties</a>...
                                         </p>
 
+<h3>Multi-account support</h3>
+
+<p>Coinbase wallet neither shows transactions for accounts, nor does it let you easily switch or import via private keys.</p>
+<p>A full logout with a re-entry of the recovery phrase is required to switch accounts, and it is not possible to enter a different derivation path which means assets sent to <code>m/44'/60'/0'/0/1</code> rather than <code>m/44'/60'/0'/0/0</code> are lost until the wallet is opened in another app that supports this.</p>
+<p>Coinbase Wallet further complicates matters by introducing a username feature which is never actually used for anything, but can still prevent you from opening a wallet as the app will warn you the “username has been taken”. This is additionally odd due to the fact that a wallet shouldn’t be stored on any server in any way, so it is not known what Coinbase is actually doing there.</p>
+<p>This application also has a pretty serious privacy leak in that it does not clear browser cache when you log out and log in again with a new passphrase, meaning your previous visits can be logged and your various identities linked.</p>
+
                                     </div>
                                     <blockquote>
                                             <p>The ability to authorize every transaction with a

@@ -110,6 +110,7 @@ function populateAttributes() {
                         
                         var label = clone.querySelector("label");
                         label.setAttribute("for", id);
+                        label.setAttribute("title", attributes[key]['levels'][j].description);
                         label.innerText = attributes[key]['levels'][j].label;
 
                         divClone.appendChild(clone);
@@ -135,6 +136,7 @@ function populateAttributes() {
                             
                             var label = clone.querySelector("label");
                             label.setAttribute("for", id);
+                            label.setAttribute("title", attributes[key]['multi'][key2].description);
                             label.innerText = attributes[key]['multi'][key2].label;
 
                             divClone.appendChild(clone);
@@ -421,7 +423,8 @@ var wallets = [
             "qr-basic",
             "qr-bip_21",
             "qr-eip_681_no",
-            "kyc-0"
+            "kyc-0",
+            "multiacc-privacy"
         ],
         "slug": "opera"
     },
@@ -467,7 +470,8 @@ var wallets = [
             "qr-basic",
             "qr-bip_21",
             "qr-eip_681_no",
-            "kyc-0"
+            "kyc-0",
+            "multiacc-privacy"
         ],
         "slug": "trust"
     },
@@ -530,7 +534,8 @@ var wallets = [
             "open_source-1",
             "keys-1",
             "stability-0",
-            "authentication-biometric"
+            "authentication-biometric",
+            "multiacc-privacy"
         ]
     },
     {
@@ -695,7 +700,7 @@ var attributes = {
                     "description": "Multiple wallets of the same blockchain per each of multiple accounts."
                 },
                 "privacy": {
-                    "label": "Privacy",
+                    "label": "No privacy",
                     "sentiment": -1,
                     "description": "Dapp browser does not clear cookies or localstorage between identities."
                 },
