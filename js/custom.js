@@ -289,8 +289,6 @@ function populateMenus() {
         let menu = $.get("/partials/menu.phtml", function(data) {
 
             data = $.parseHTML(data);
-            console.log(data);
-
             for (let i = 0; i < data.length; i++) {
                 let target = $(data[i]).attr("data-putinto");
                 if (target) {
@@ -305,6 +303,11 @@ function populateMenus() {
                         document.querySelectorAll(".appMenuList")[j].innerHTML += newItem;
                     }
                 }
+            }
+
+            var isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+            if (isMobile) {
+                $(".pjax").css("padding-top", 0);
             }
         });
     }
@@ -399,6 +402,7 @@ var wallets = [
             "qr-basic",
             "qr-eip_681_no",
             "kyc-0",
+            "multiacc-swma"
             // "qr-inweb3"
         ],
         "slug": "status"
@@ -424,7 +428,8 @@ var wallets = [
             "qr-bip_21",
             "qr-eip_681_no",
             "kyc-0",
-            "multiacc-privacy"
+            "multiacc-privacy",
+            "multiacc-solo"
         ],
         "slug": "opera"
     },
@@ -471,7 +476,8 @@ var wallets = [
             "qr-bip_21",
             "qr-eip_681_no",
             "kyc-0",
-            "multiacc-privacy"
+            "multiacc-privacy",
+            "multiacc-mwsa"
         ],
         "slug": "trust"
     },
@@ -498,7 +504,8 @@ var wallets = [
             "open_source-0",
             "keys-0",
             "stability-2",
-            "authentication-biometric"
+            "authentication-biometric",
+            "multiacc-solo"
         ],
         "website": "https://tenx.tech/en/",
         "description": "TenX is a custodial wallet with the option of obtaining a crypto debit card one can top up and spend with."
@@ -535,7 +542,8 @@ var wallets = [
             "keys-1",
             "stability-0",
             "authentication-biometric",
-            "multiacc-privacy"
+            "multiacc-privacy",
+            "multiacc-solo"
         ]
     },
     {
@@ -558,10 +566,98 @@ var wallets = [
             "open_source-2",
             "keys-2",
             "stability-0",
-            "authentication-hw"
+            "authentication-hw",
+            "multiacc-mwsa"
+        ]
+    },
+    {
+        "label": "PandaX",
+        "description": "A simple Ethereum wallet by the Chinese provider Linktimetech.",
+        "website": "https://www.pandax.tech/",
+        "slug": "pandax",
+        "attr": [
+            "censorship-0",
+            "dapps-0",
+            "ux-1",
+            "multiacc-swma",
+            "qr-invalid",
+            "ens-2",
+            "chains-eth",
+            "custom_net-0",
+            "kyc-1",
+            "os-ios",
+            "os-android",
+            "custom_token-no_erc20",
+            "open_source-0",
+            "keys-1",
+            "stability-2",
+            "authentication-hw",
+            "multiacc-mwsa"
+        ]
+    },
+    {
+        "label": "imToken",
+        "description": "A well known wallet and dapp browser with a strong presence in the ecosystem and their own proprietary hardware login approach.",
+        "website": "https://imtoken.im",
+        "slug": "imtoken",
+        "attr": [
+            "censorship-1",
+            "dapps-2",
+            "ux-3",
+            "defi-compound",
+            "multiacc-mwsa",
+            "multiacc-privacy",
+            "multiacc-hdman",
+            "qr-basic",
+            "qr-eip_831",
+            "qr-eip_681_no",
+            "ens-0",
+            "multichain-0",
+            "chains-eth",
+            "chains-btc",
+            "chains-atom",
+            "chains-eos",
+            "custom_net-1",
+            "kyc-0",
+            "os-android",
+            "os-ios",
+            "custom_token-erc20",
+            "custom_token-erc721",
+            "open_source-0",
+            "keys-1",
+            "stability-2",
+            "authentication-biometric",
+            "authentication-proprietary"
+        ]
+    },
+    {
+        "label": "AlphaWallet",
+        "description": "A simple \"No nonsense\" Ethereum wallet",
+        "website": "https://alphawallet.com",
+        "slug": "alphawallet",
+        "attr": [
+            "censorship-1",
+            "dapps-2",
+            "ux-0",
+            "multiacc-mwsa",
+            "multiacc-privacy",
+            "qr-basic",
+            "qr-eip_831_bad",
+            "qr-eip_681_no",
+            "ens-2",
+            "chains-eth",
+            "custom_net-0",
+            "kyc-0",
+            "os-android",
+            "os-ios",
+            "custom_token-erc20",
+            "custom_token-erc721",
+            "open_source-2",
+            "keys-2",
+            "stability-0",
+            "authentication-none"
         ]
     }
-
 ]
 
 var attributes = {
@@ -725,6 +821,11 @@ var attributes = {
         "qr": {
             "label": "QR Code Support",
             "multi": {
+                "invalid": {
+                    "label": "Nonstandard QR",
+                    "description": "The application only reads nonstandard QR codes and errors when a standardized URI is given.",
+                    "sentiment": -1
+                },
                 "basic": {
                     "label": "QR: Address",
                     "description": "The application's QR scanner has basic recipient address scanning capability.",
@@ -1179,6 +1280,16 @@ var attributes = {
                         }
                     ]
                 },
+                "atom": {
+                    "label": "Cosmos",
+                    "description": "A cross-chain communication protocol, Cosmos wants to be the bridge to all other blockchains.",
+                    "links": [
+                        {
+                            title: "Website",
+                            href: "https://cosmos.network/"
+                        }
+                    ]
+                }
             }
         },
 
@@ -1336,17 +1447,30 @@ var attributes = {
         "authentication": {
             "label": "Authentication",
             "multi": {
+                "none": {
+                    "label": "No authentication",
+                    "description": "Once set up, the app is unlocked for all. No password or anything.",
+                    "sentiment": -1
+                },
                 "hw": {
                     "label": "Hardware wallet",
-                    "description": "Application supports authentication through some manner of hardware wallet like Status Keycard, Trezor, Ledger Nano or similar."
+                    "description": "Application supports authentication through some manner of hardware wallet like Status Keycard, Trezor, Ledger Nano or similar.",
+                    "sentiment": 0.5
                 },
                 "yubikey": {
                     "label": "Yubikey",
-                    "description": "User can authenticate using a Yubikey."
+                    "description": "User can authenticate using a Yubikey.",
+                    "sentiment": 0.5
                 },
                 "biometric": {
                     "label": "Biometric",
-                    "description": "User can authenticate using face scan, fingerprint scan, or iris scan."
+                    "description": "User can authenticate using face scan, fingerprint scan, or iris scan.",
+                    "sentiment": 0.5
+                },
+                "proprietary": {
+                    "label": "Proprietary",
+                    "description": "Application has support for their own proprietary hardware wallet.",
+                    "sentiment": 0
                 }
             }
         }
