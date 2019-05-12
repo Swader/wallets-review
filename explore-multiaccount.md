@@ -16,6 +16,8 @@ Recovering the funds, however, is possible by importing the `m/44'/60'/0'/0/0` w
 
 Switching identities / accounts entails clicking on settings, wallets, and then picking one of these wallets.
 
+This application has a pretty serious privacy leak in that it does not clear browser cache when you log out and log in again with a new passphrase, meaning your previous visits can be logged and your various identities linked.
+
 ### Status
 
 Multi account support in Status is [difficult to set up](https://github.com/status-im/status-react/issues/6426) but easy to use once configured.
@@ -25,6 +27,8 @@ Switching accounts entails going to settings, logging out, and logging in with a
 Status does not allow custom derivation paths, and each new account is a new identity in its own right with its own special recovery phrase and thus new tree of wallets. Sending ether or tokens to `m/44'/60'/0'/0/0` works, but sending them to `m/44'/60'/0'/0/1` will not register the assets and they have to be extracted via other means.
 
 Status does not allow private key imports, making these assets unrecoverable through this app.
+
+Status maintains privacy across user identities by clearing dapp browser cache, cookies and localstorage.
 
 ### Walleth
 
@@ -56,6 +60,8 @@ A full logout with a re-entry of the recovery phrase is required, and it is not 
 
 Coinbase Wallet further complicates matters by introducing a username feature which is never actually used for anything, but can still prevent you from opening a wallet as the app will warn you the "username has been taken". This is additionally odd due to the fact that a wallet shouldn't be stored on any server in any way, so it is not known what Coinbase is actually doing there.
 
+This application also has a pretty serious privacy leak in that it does not clear browser cache when you log out and log in again with a new passphrase, meaning your previous visits can be logged and your various identities linked.
+
 ### PandaX
 
 PandaX has an extremely easy to use account-switching feature. Accounts can be imported via phrase, keystore or key and will be added to a master list under one user. There is no way to individually secure the accounts. Account switching is instant and extremely well done.
@@ -76,6 +82,8 @@ Switching identities is quick and easy - all it takes is a tap in the left sideb
 
 Transactions and balances are shown for each active wallet separately.
 
+This application also has a pretty serious privacy leak in that it does not clear browser cache when you log out and log in again with a new passphrase, meaning your previous visits can be logged and your various identities linked.
+
 ### AlphaWallet
 
 AlphaWallet only allows import by private key or keystore which means it ignores derivation path altogether. Switching accounts is very easy, one needs to open the settings and go to My Wallets where they're all listed and easily clickable.
@@ -86,9 +94,13 @@ It should be noted that AlphaWallet does not secure wallets at all - it does not
 
 AlphaWallet does not properly inject Web3 so many dapps do not recognize it, but when they do, the identity is immediately switched on wallet switch. It is not known whether or not the cookies are cleared as well.
 
+This application also has a pretty serious privacy leak in that it does not clear browser cache when you log out and log in again with a new passphrase, meaning your previous visits can be logged and your various identities linked.
+
 ## Conclusions
 
 Among the tested wallets, only imToken offers derivation path choices but none auto-scan the paths for active accounts. The most useful ones are those that allow side-by-side usage of alternative accounts (Trust Wallet, Alpha Wallet, imToken, PandaX) or extremely easy import via various different methods.
+
+There is a serious privacy implication in wallet apps that offer dapp browsers in that they do not clear cookies or localstorage except in the case of Status. This means that switching identities is effectively pointless because a dapp can easily track previously visiting Ethereum addresses and thus extrapolate common identities from those connections. Out of all tested wallets only Status currently clears cookies and localstorage to remove these traces.
 
 There is a clear opening in the market for a well designed application that:
 
