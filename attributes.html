@@ -31,55 +31,28 @@
 </head>
 <body>
 
-        <div class="theme-layout">
-                <div id="codefund"><!-- fallback content --></div>
-                <script src="https://codefund.app/properties/262/funder.js" async="async"></script>
-        
-
-	<div class="responsive-header">
-		<div class="logo"><a href="/" title=""><img height="52px" src="/images/logo.png" alt="" /></a></div>
-		<span class="open-responsive-btn"><i class="la la-bars"></i><i class="la la-close"></i></span>
-
-		<div class="responsive-menu">
-			<span class="close-reposive"><i class="la la-close"></i></span>
-			<div class="logo"><a href="/" title=""><img height="52px" src="/images/logo.png" alt="" /></a></div>
-            <ul>
-                    <li class="menu">
-                        <a href="/" title="">Home</a>
-                    </li>
-                    <li class="menu-item-has-children">
-                        <a href="javascript:void(0)" title="">Apps</a>
-                        <ul class="appMenuList">
-                            
-                        </ul>
-                    </li>
-                    <li><a href="/attributes.html" title="Attributes">Attributes Explained</a></li>
-                    <li><a href="mailto:contact@bitfalls.com" title="">Contact Us</a></li>
-                </ul>
+	<div class="theme-layout pjax">
+		<div id="codefund">
+			<!-- fallback content -->
 		</div>
-    </div>
-    
-    <header class="on-top dark">
-            <div class="logo"><a href="/" title=""><img height="52px" src="/images/logo.png" alt="" /></a></div>
-            <div class="menu-sec">
-                
-                <nav class="header-menu">
-                    <ul>
-                        <li class="menu">
-                            <a href="/" title="">Home</a>
-                        </li>
-                        <li class="menu-item-has-children">
-                            <a href="/" title="">Apps</a>
-                            <ul class="appMenuList">
-                                
-                            </ul>
-                        </li>
-                        <li><a href="/attributes.html" title="Attributes">Attributes Explained</a></li>
-                        <li><a href="mailto:contact@bitfalls.com" title="">Contact Us</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
+		<script src="https://codefund.app/properties/262/funder.js" async=	"async"></script>
+
+		<div class="responsive-header">
+			<div class="logo"><a href="/" title=""><img height="52px" src="/images/logo.png" alt="" /></a></div>
+			<span class="open-responsive-btn"><i class="la la-bars"></i><i class="la la-close"></i></span>
+
+			
+		</div>
+
+		<header class="on-top dark" style="height: 97px">
+			<div class="logo"><a href="/" title=""><img height="52px" src="/images/logo.png" alt="" /></a></div>
+			<div class="menu-sec">
+
+				<nav class="header-menu">
+					
+				</nav>
+			</div>
+		</header>
 
 	<section>
             <div class="block no-padding">
@@ -205,6 +178,15 @@
                                         <p>Some applications demand KYC procedures from their users. These will often involve things like talking to an agent in a videocall and brandishing one's passport or other form of government-issued ID. Obviously, this poses an enormous risk to end-users. Not only is there an implied privacy leak, but it also puts users in direct danger if this data is ever sold. Read more about this terrible practice in <a href="https://bitfalls.com/2018/09/06/think-twice-before-giving-that-ico-project-your-kyc-data/">this post</a>.</p>
                                     </div>
                             </div><!-- FAQ'S Box -->
+                            
+                            <div class="faqs-box" id="multiacc" data-attribute="multiacc">
+                                    <h3>Multi-account support</h3>
+                                    <div class="content-faq">
+                                        <p>An application can support a user having multiple wallets on a single account, i.e. "Ethereum 1", "Ethereum 2", etc. This would be known as a multi-wallet single-account app. Some apps allow multiple accounts as well, which make it possible to have multiple wallets on different accounts, ideal for managing client funds etc.</p>
+                                        <p>This multi-identity approach has some pitfalls too - most notably, if an app does not clear browser cache between identity switches, a dapp (and anyone looking in from the outside) can track these identities and make the connection between them. You can test if your wallet clears the cache by using the <a href="/dont-track-web3.html" target="_blank">Don't Track Web3</a> tool we made specifically for this.</p>
+                                        <p>Apart from just identities, some wallets also make use of the HD aspect of modern cryptocurrency wallets. HD wallets are explained in understandable detail <a target="_blank" ref="nofollow" href="https://www.investopedia.com/terms/h/hd-wallet-hierarchical-deterministic-wallet.asp">in this Investopedia post</a>. The TL;DR of it is, a single phrase can generate an infinity of addresses, so some wallets use this to auto-scan automatically-derived addresses for funds, so you can have many under a single identity, and some even go as far as generating single-use receive addresses using the deterministic paths.</p>
+                                    </div>
+                            </div><!-- FAQ'S Box -->
 
                                 <div class="faqs-box" id="keys" data-attribute="keys">
                                         <h3>Key custody</h3>
@@ -234,19 +216,8 @@
             </div>
         </section>
     
-	<footer class="wide-container">
-		<div class="block remove-top no-layer">
-			
-			<div class="bottom-line dark">
-				<div class="container">
-					<span>Copyright Bitfalls.com © 2019. All Rights Reserved | <a href="mailto:contact@bitfalls.com">contact@bitfalls.com</a> | Made by <a href="https://bruno.id">Bruno</a></span>
-					<ul class="social-links">
-						<li><a href="https://twitter.com/bitfalls" title="Bitfalls Twitter"><i class="la la-twitter"></i></a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</footer>
+		<footer class="wide-container footer"></footer>
+
 
 </div>
 

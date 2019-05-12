@@ -33,56 +33,28 @@
 
 <body>
 
-    <div class="theme-layout">
-        <div id="codefund">
-            <!-- fallback content -->
-        </div>
-        <script src="https://codefund.app/properties/262/funder.js" async="async"></script>
+	<div class="theme-layout pjax">
+		<div id="codefund">
+			<!-- fallback content -->
+		</div>
+		<script src="https://codefund.app/properties/262/funder.js" async=	"async"></script>
 
-        <div class="responsive-header">
-            <div class="logo"><a href="/" title=""><img height="52px" src="/images/logo.png" alt="" /></a></div>
-            <span class="open-responsive-btn"><i class="la la-bars"></i><i class="la la-close"></i></span>
+		<div class="responsive-header">
+			<div class="logo"><a href="/" title=""><img height="52px" src="/images/logo.png" alt="" /></a></div>
+			<span class="open-responsive-btn"><i class="la la-bars"></i><i class="la la-close"></i></span>
 
-            <div class="responsive-menu">
-                <span class="close-reposive"><i class="la la-close"></i></span>
-                <div class="logo"><a href="/" title=""><img height="52px" src="/images/logo.png" alt="" /></a></div>
-                <ul>
-                    <li class="menu">
-                        <a href="/" title="">Home</a>
-                    </li>
-                    <li class="menu-item-has-children">
-                        <a href="javascript:void(0)" title="">Apps</a>
-                        <ul class="appMenuList">
+			
+		</div>
 
-                        </ul>
-                    </li>
-                    <li><a href="/attributes.html" title="Attributes">Attributes Explained</a></li>
-                    <li><a href="mailto:contact@bitfalls.com" title="">Contact Us</a></li>
-                </ul>
-            </div>
-        </div>
+		<header class="on-top dark" style="height: 97px">
+			<div class="logo"><a href="/" title=""><img height="52px" src="/images/logo.png" alt="" /></a></div>
+			<div class="menu-sec">
 
-        <header class="on-top dark">
-            <div class="logo"><a href="/" title=""><img height="52px" src="/images/logo.png" alt="" /></a></div>
-            <div class="menu-sec">
-
-                <nav class="header-menu">
-                    <ul>
-                        <li class="menu">
-                            <a href="/" title="">Home</a>
-                        </li>
-                        <li class="menu-item-has-children">
-                            <a href="/" title="">Apps</a>
-                            <ul class="appMenuList">
-
-                            </ul>
-                        </li>
-                        <li><a href="/attributes.html" title="Attributes">Attributes Explained</a></li>
-                        <li><a href="mailto:contact@bitfalls.com" title="">Contact Us</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
+				<nav class="header-menu">
+					
+				</nav>
+			</div>
+		</header>
 
         <section>
             <div class="block no-padding">
@@ -107,7 +79,7 @@
                             <div class="single-post-detail">
                                 <h3 class="mini-title">Walleth</h3>
                                 <div class="blog-post wide">
-                                    <div class="blog-post-thumb"> <a href="#" title=""><img src="header.png"
+                                    <div class="blog-post-thumb"> <a href="#" title=""><img src="/apps/walleth/header.png"
                                                 alt="" /></a></div>
                                     <div class="blog-detail">
                                         <ul class="blog-metas">
@@ -118,8 +90,8 @@
                                         <p><span>W</span>alleth is an open source Android wallet for Ethereum, a hobby project by Ethereum core developer <a href="https://twitter.com/mr_ligi">Ligi</a>. It's designed with security and simplicity in mind and actively discourages bad practices with a bunch of warnings, not only in terms of the app itself, but also the OS it's running on:
                                         
                                         <div class="imgContainer">
-                                            <img src="img01.png" alt="OS warnings">
-                                            <img src="img02.png" alt="Application warnings">
+                                            <img src="/apps/walleth/img01.png" alt="OS warnings">
+                                            <img src="/apps/walleth/img02.png" alt="Application warnings">
                                         </div>
                                         
                                         </p>
@@ -132,7 +104,7 @@
                                         <p>Walleth works by building a transaction offline and then relaying it to the network through an RPC provider. That provider right now is Infura, so Walleth remains somewhat vulnerable by depending on the biggest central entity of the Ethereum network. Just as unfortunately, there's no support for custom nodes or networks yet, so there's no way to escape this attack vector for now.
 
 <div class="imgContainer">
-    <img src="img03.png" alt="Adding new networks is not yet implemented">
+    <img src="/apps/walleth/img03.png" alt="Adding new networks is not yet implemented">
 </div>
 
                                         </p>
@@ -154,8 +126,8 @@
                                         <p>There's no ENS support, though this is planned. ERC721 tokens are not supported, but ERC20 tokens are - however, they are not auto-detected as they read their definitions from <a href="https://github.com/ligi/ethereum-lists">a list on Github</a>, rather than from on-chain. You need to manually add them. I sent a SWADER token to a Walleth address and got an unknown transaction.
                                         
                                             <div class="imgContainer">
-                                                <img src="img04.png" alt="Unknown Transaction">
-                                                <img src="img05.png" alt="Unknown Transaction Detailed View">
+                                                <img src="/apps/walleth/img04.png" alt="Unknown Transaction">
+                                                <img src="/apps/walleth/img05.png" alt="Unknown Transaction Detailed View">
                                             </div>
                                         
                                         </p>
@@ -163,8 +135,8 @@
                                         <p>To get Walleth to recognize it, I had to find the token's address, scan that QR code (there's no manual input), select Add Token Definition and then... realized it's a TODO and hasn't been implemented. My 1 SWADER is lost 😫
 
 <div class="imgContainer">
-    <img src="img06.png" alt="Add Token Definition">
-    <img src="img07.png" alt="Add Token Definition is a TODO">
+    <img src="/apps/walleth/img06.png" alt="Add Token Definition">
+    <img src="/apps/walleth/img07.png" alt="Add Token Definition is a TODO">
 </div>
 
                                         </p>
@@ -207,22 +179,8 @@
             </div>
         </section>
 
-        <footer class="wide-container">
-            <div class="block remove-top no-layer">
+		<footer class="wide-container footer"></footer>
 
-                <div class="bottom-line dark">
-                    <div class="container">
-                        <span>Copyright Bitfalls.com © 2019. All Rights Reserved | <a
-                                href="mailto:contact@bitfalls.com">contact@bitfalls.com</a> | Made by <a
-                                href="https://bruno.id">Bruno</a></span>
-                        <ul class="social-links">
-                            <li><a href="https://twitter.com/bitfalls" title="Bitfalls Twitter"><i
-                                        class="la la-twitter"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
 
     </div>
 

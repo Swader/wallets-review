@@ -281,20 +281,33 @@ function resetFilters() {
 }
 
 function populateMenus() {
-    if ($(".appMenuList").length) {
-        for (var i = 0; i < wallets.length; i++) {
-            var newItem = "<li><a href='/apps/"+ wallets[i].slug +"'>"+ wallets[i].label +"</a></li>";
-            for (var j = 0; j < document.querySelectorAll(".appMenuList").length; j++) {
-                document.querySelectorAll(".appMenuList")[j].innerHTML += newItem;
+
+    // PJAX a menu into view
+    if ($(".pjax").length) {
+        let menu = $.get("/partials/menu.phtml", function(data) {
+
+            data = $.parseHTML(data);
+            console.log(data);
+
+            for (let i = 0; i < data.length; i++) {
+                let target = $(data[i]).attr("data-putinto");
+                if (target) {
+                    $(".pjax ." + target).append($(data[i]));
+                }
             }
-        }
+
+            if ($(".appMenuList").length) {
+                for (var i = 0; i < wallets.length; i++) {
+                    var newItem = "<li><a href='/apps/"+ wallets[i].slug +"'>"+ wallets[i].label +"</a></li>";
+                    for (var j = 0; j < document.querySelectorAll(".appMenuList").length; j++) {
+                        document.querySelectorAll(".appMenuList")[j].innerHTML += newItem;
+                    }
+                }
+            }
+        });
     }
-    if ($(".responsive-menu ul").length) {
-        $(".responsive-menu ul").append("<li><a href='https://wallets.substack.com'>Newsletter</a></li>")
-    }   
-    if ($(".header-menu ul").length) {
-        $(".header-menu ul").append("<li><a href='https://wallets.substack.com'>Newsletter</a></li>")
-    }
+
+    
 }
 
 function shuffleArray(array) {
@@ -660,22 +673,49 @@ var attributes = {
 
         "multiacc": {
             "label": "Multi-account",
-            "levels": [
-                {
-                    "label": "Single Account",
+            "multi": {
+                "solo": {
+                    "label": "Solo",
                     "sentiment": -1,
-                    "description": "Application does not support multiple accounts or addresses. This has privacy implications."
+                    "description": "Application does not support multiple accounts or addresses. Dangerous privacy implications."
                 },
-                {
-                    "label": "Hard to use multi-account",
-                    "sentiment": 0,
-                    "description": ""
+                "mwsa": {
+                    "label": "MWSA",
+                    "sentiment": 0.5,
+                    "description": "Multiple wallets of a particular blockchain but only on a single account."
                 },
-                {
-                    "label": 
+                "swma": {
+                    "label": "SWMA",
+                    "sentiment": 0.5,
+                    "description": "Single wallet of a particular blockchain per each of multiple accounts."
+                },
+                "mwma": {
+                    "label": "MWMA",
+                    "sentiment": 1,
+                    "description": "Multiple wallets of the same blockchain per each of multiple accounts."
+                },
+                "privacy": {
+                    "label": "Privacy",
+                    "sentiment": -1,
+                    "description": "Dapp browser does not clear cookies or localstorage between identities."
+                },
+                "hdman": {
+                    "label": "HD: Manual",
+                    "sentiment": 0.5,
+                    "description": "App allows manual input of derivation paths."
+                },
+                "hdauto": {
+                    "label": "HD: Auto",
+                    "sentiment": 1,
+                    "description": "App can seek out HD addresses on its own and generate a collective account"
+                },
+                "hdburn": {
+                    "label": "HD: Burners",
+                    "sentiment": 0.5,
+                    "description": "App generates a new burner HD receiver address for each income."
                 }
-            ],
-        }
+            },
+        },
 
         "qr": {
             "label": "QR Code Support",
