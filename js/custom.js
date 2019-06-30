@@ -383,11 +383,9 @@ $(document).ready(function(){
 });
 
 /**
- * Trust wallet
 Jaxx
-Opera Mobile
 Alpha Wallet
-imToken
+
 wallETH
 https://unstoppable.money/
 Metamask
