@@ -382,6 +382,42 @@ $(document).ready(function(){
     populateCoins();
 });
 
+/**
+ * Trust wallet
+Jaxx
+Opera Mobile
+Alpha Wallet
+imToken
+wallETH
+https://unstoppable.money/
+Metamask
+Burner Wallet
+Mycelium
+Coinbase Wallet
+Parity Feather
+Parity Signer
+LETH
+Samsung Wallet
+HTC Wallet
+Rainbow
+qPocket
+Argent - their approach is incredibly harmful… sexy though.
+Cipher <- now “Coinbase Wallet”
+Pandax
+TenX
+Enjin
+Waves Wallet
+Blockstack
+Pokitoken
+Dether
+MEWConnect - not to be confused with MyCrypto
+DexWallet
+Balance
+Ambo by MyCrypto
+Wider definition
+tokencard.io
+ */
+
 var wallets = [
     {
         "label": "Status",

@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: wallets.review
+Token: 75d524ac992e8339a73dbec4d0b65d62989b23832a94bc3816abe2a99eceda70
