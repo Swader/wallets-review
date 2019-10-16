@@ -632,7 +632,7 @@ var wallets = [
     {
         "label": "imToken",
         "description": "A well known wallet and dapp browser with a strong presence in the ecosystem and their own proprietary hardware login approach.",
-        "website": "https://imtoken.im",
+        "website": "https://token.im",
         "slug": "imtoken",
         "attr": [
             "censorship-1",
@@ -645,7 +645,7 @@ var wallets = [
             "qr-basic",
             "qr-eip_831",
             "qr-eip_681_no",
-            "ens-0",
+            "ens-1",
             "multichain-0",
             "chains-eth",
             "chains-btc",
