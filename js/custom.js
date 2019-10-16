@@ -645,7 +645,7 @@ var wallets = [
             "qr-basic",
             "qr-eip_831",
             "qr-eip_681_no",
-            "ens-1",
+            "ens-2",
             "multichain-0",
             "chains-eth",
             "chains-btc",
