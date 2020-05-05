@@ -93,6 +93,10 @@ ol li,ol li a{
     font-size:15px;
     line-height:28px;
 }
+/* override Bootstrap, accessible colour */
+a {
+    color: #3072ab;
+}
 a:hover,
 a:focus{
     text-decoration:none;
