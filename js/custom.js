@@ -43,7 +43,7 @@ function populateWallets() {
             
             if (attributeName == "chains") {
                 var blackIconPath = "/images/cryptocurrency-icons/32/black/"+ attributeValue +".png";
-                tagClone.querySelector(".attribute").innerHTML = "<a href='/coins.html#"+attributeValue+"'><img width='32' height='32' src='"+blackIconPath+"' alt=""></a>";
+                tagClone.querySelector(".attribute").innerHTML = "<a href='/coins.html#"+attributeValue+"'><img width='32' height='32' src='"+blackIconPath+"' alt=''></a>";
                 $(tagClone.querySelector(".attribute")).addClass("chainIcon");
                 tagClone.querySelector(".attribute").title = currentAttribute.label;
                 clone.querySelector(".chain-list").appendChild(tagClone);
@@ -187,7 +187,7 @@ function populateAttributes() {
                     var attributeName = index.split("-")[0];
                     var attributeValue = index.split("-")[1];
                     var blackIconPath = "/images/cryptocurrency-icons/32/black/"+ attributeValue +".png";
-                    tagClone.querySelector(".attribute").innerHTML = "<a href='/coins.html#"+attributeValue+"'><img width='32' height='32' src='"+blackIconPath+"' alt=""></a>";
+                    tagClone.querySelector(".attribute").innerHTML = "<a href='/coins.html#"+attributeValue+"'><img width='32' height='32' src='"+blackIconPath+"' alt=''></a>";
                     $(tagClone.querySelector(".attribute")).addClass("chainIcon");
                     tagClone.querySelector(".attribute").title = element.label;
                 } else {
@@ -232,7 +232,7 @@ function populateAttributes() {
                     
                     if (attributeName == "chains") {
                         var blackIconPath = "/images/cryptocurrency-icons/32/black/"+ attributeValue +".png";
-                        tagClone.querySelector(".attribute").innerHTML = "<a href='/coins.html#"+attributeValue+"'><img width='32' height='32' src='"+blackIconPath+"' alt=""></a>";
+                        tagClone.querySelector(".attribute").innerHTML = "<a href='/coins.html#"+attributeValue+"'><img width='32' height='32' src='"+blackIconPath+"' alt=''></a>";
                         $(tagClone.querySelector(".attribute")).addClass("chainIcon");
                         tagClone.querySelector(".attribute").title = currentAttribute.label;
                     } else {
